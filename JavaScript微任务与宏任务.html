@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+	</head>
+	<body>
+		<div>
+			同步任务
+			异步任务，分为：宏任务、微任务
+			
+			执行顺序：先执行同步代码，遇到异步宏任务则将异步宏任务放入宏任务队列中，遇到异步微任务则将异步微任务放入微任务队列中，
+				当所有同步代码执行完毕后，再将异步微任务从队列中调入主线程执行，
+				微任务执行完毕后再将异步宏任务从队列中调入主线程执行，一直循环直至所有任务执行完毕。
+		</div>
+		
+		<script>
+			// function resolve() {
+			// 	console.log("执行resolve啦");
+			// }
+			
+			// setTimeout(function(){
+			// 	console.log('定时器开始啦')
+			// });
+			 
+			// new Promise(function(resolve){
+			// 	console.log('马上执行for循环啦');
+			// 	for(var i = 0; i < 10000; i++){
+			// 		i == 88 && resolve();
+			// 		i == 100 && console.log("还在执行for");
+			// 	}
+			// }).then(function(){
+			// 	console.log('执行then函数啦')
+			// });
+			
+			// console.log('代码执行结束');
+			
+console.log('head');
+
+// setTimeout异步宏任务
+// setTimeout(() => {
+// 	console.log("setTimeout1");
+// 	new Promise((resolve) => {
+// 		console.log('promise2');
+// 		resolve()
+// 	}).then(() => {
+// 		console.log('then2');
+// 		for(let i = 0; i < 100000000; i++) {
+// 			if(i == 1000000) console.log(11);
+// 		}
+// 	})
+// })
+
+// then是异步微任务
+new Promise((resolve, reject) => {
+	console.log('promise');
+	for(let i = 0; i < 100; i++) {
+		if(i == 90) console.log('ii');
+		i == 88 && resolve()
+	}
+}).then(() => {
+	console.log('then1');
+	new Promise((resolve) => {
+		console.log('promise');
+		resolve()
+	}).then(() => {
+		console.log('then3');
+	})
+	setTimeout(() => {
+		console.log('settimeout3');
+	},10)
+})
+
+// setTimeout(() => {
+// 	console.log("setTimeout2");
+// })
+
+console.log('footer');
+			
+		</script>
+	</body>
+</html>

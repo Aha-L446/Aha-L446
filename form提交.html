@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="initial-scale=1, width=device-width, maximum-scale=1, user-scalable=no" />
+		<title></title>
+	</head>
+	<body>
+		<form id="form" method="post">
+			<input name="name" />
+			<input name="file" type="file" accept="image/*" />
+			<input type="button" value="提交" onclick='$("#form").submit();' />
+			<img id="img" width="100px"/>
+		</form>
+		<div>
+			知识点：
+				1、new FormData()
+				
+				2、contentType: false
+				   processData: false
+				   dataType: "json"
+				   
+				3、new FileReader()
+				   r.readAsDataURL()
+				   r.onload = function(){ r.result【返回的是base64】 }
+		</div>
+		
+		<script src="https://asme.191ec.com/js/jquery.js"></script>
+		<script>
+			// 回显：base64
+			$("[name=file]").change(function(e){
+				var r = new FileReader();
+				r.readAsDataURL(document.getElementsByName('file')[0].files[0]);
+				r.onload = function (e){         
+					$("#img").attr("src", r.result);
+				};
+			})
+			
+			$("#form").submit(function (e) {
+				// FormData对象：用一些键值对来模拟一系列表单控件
+				// var formData = new FormData($("#form")[0]);
+				// 上一句等同于：
+				var formData = new FormData(document.getElementById('form'));
+				
+				$.ajax({
+					url: "https://asme.191ec.com/silver-web-shop/member/upHeadImg",
+					xhrFields: {
+						withCredentials: true
+					},
+					type: "post",
+					data: formData,
+					// ----------------------关键配置start
+					// 默认情况下contentType = "application/x-www-form-urlencoded"
+					// 当contentType = false时，contentType会使用FormData的enctype
+					// 默认情况下，作为对象传递给data选项的数据（从技术上讲，不是字符串）将被处理并转换为查询字符串，以适合默认的内容类型“ application / x-www-form-urlencoded” 。 如果要发送DOMDocument或其他未处理的数据，请将此选项设置为false。
+					contentType: false,
+					// 简单来说，当processData: true的时候，jquery会序列化数据。当processData: false的时候，jquery不会对数据进行处理。
+					processData: false,
+					dataType: "json",
+					// ----------------------关键配置end
+					success: function(response) {
+						console.log(response);
+					},
+					error: function() {
+
+					}
+			    })
+			    return false; // 阻止表单跳转
+			});
+		</script>
+	</body>
+</html>
