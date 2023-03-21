@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+	</head>
+	<body>
+		一、flat()：降维
+			
+			用法：
+				1、传入参数：可省，默认1，将降几维
+			<script>
+				const arr = [1, 2, [3, 4], [[1, 2], [5, 6]], 8];
+				console.log(arr.flat());
+				console.log(arr.flat(2));
+				
+				console.log('---------------------------------');
+			</script>
+		
+		二、flatMap()
+			
+			用法：
+				1、传入参数：可省，默认1，将降几维
+				
+			引用场景：
+			<script>
+				// 1-与map类似：处理数组的数据
+				const arr2 = [1, 2, 8];
+				const arr3 = arr2.flatMap(item => {
+					return item * 2;
+				})
+				console.log(arr3);
+				
+				
+				// 2-对元素进行切割，并将维
+				const arr4 = ['Hello World', 'My name if Aha'];
+				const arr5 = arr4.flatMap(item => {
+					return item.split(' ');
+				})
+				const arr6 = arr4.map(item => {
+					return item.split(' ');
+				})
+				console.log(arr5);
+				console.log(arr6);
+				
+				console.log('---------------------------------');
+			</script>
+		
+		
+		三、Object fromEntries
+			作用：将entries转成object类型
+			
+			引用场景：将url上的query转成object类型
+			<script>
+				const str = 'https://baidu.com?name=Aha&age=18';
+				let query = str.split('?')[1];
+				query = new URLSearchParams(query);
+				console.log(query);
+				for (const item of query) {
+					console.log(item);
+				}
+				console.log(Object.fromEntries(query));
+				
+				console.log('---------------------------------');
+			</script>
+		
+		
+		四、trimStart()、trimEnd()
+			去除头部/尾部的空格
+		
+		
+		五、Symbol description
+			
+		六、Optional catch binding：抛出异常
+	</body>
+</html>

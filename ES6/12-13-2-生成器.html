@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+	</head>
+	<body>
+		生成器是ES6提供的一种异步编程解决方案。其实就是一个特殊的函数。
+		
+		1、调用：使用表达式创建处理后，再去调用next()
+		2、函数代码分割符：yield
+		3、一个next()执行一个代码块，并且返回分割线的值（对象类型：{value: , done: }）
+			<!-- <script>
+				function * gen(){
+					console.log(111);
+					yield '分割1'
+					console.log(222);
+					yield '分割2'
+					console.log(333);
+				}
+				let i = gen();
+				i.next();
+				i.next();
+				i.next();
+				
+				for(let v of gen()) {
+					console.log(v);
+				}
+			</script> -->
+		
+		传参问题：
+			1、表达式时可传参
+			2、next()可传参
+			<script>
+				function * gen2(arg){
+					console.log(arg);
+					
+					let y1 = yield '分割1'
+					
+					console.log(y1);
+					
+					let y2 = yield '分割2'
+					
+					console.log(y2);
+				}
+				let it = gen2('arg');
+				it.next();
+				it.next('y1');
+				it.next('y2');
+				it.next('y3');
+				
+				console.log('-------------------------')
+			</script>
+		
+		
+		js：单线程异步操作
+		异步编程：文件操作、网络请求(ajax、request)、数据库操作
+		
+		异步回调步骤：
+			1、先定义各个异步回调的方法
+			2、定义生成器，调用第一次
+			3、在回调方法里调用后面的next()
+		
+		应用场景1：
+			一秒钟后，输出111；两秒钟后，输出222，三秒钟后，输出333
+			<script>
+				function one() {
+					setTimeout(function(){
+						console.log(111);
+						ite.next();	//调用第二次 
+					}, 1000)
+				}
+				function two() {
+					setTimeout(function(){
+						console.log(222);
+						ite.next();	//调用第三次 
+					}, 2000)
+				}
+				function three() {
+					setTimeout(function(){
+						console.log(333);
+					}, 3000)
+				}
+				function * gen3() {
+					yield one();
+					yield two();
+					yield three();
+				}
+				let ite = gen3();
+				ite.next();	//调用第一次 
+				
+				console.log('-------------------------')
+			</script>
+		
+		应用场景2：
+			模拟获取数据：用户数据->订单数据->商品数据（之间有关联，需要传递参数）
+			<script>
+				function getUser() {
+					setTimeout(function(){
+						let data = '用户数据';
+						iter.next(data);	//调用第二次 
+					}, 1000)
+				}
+				function getOrder() {
+					setTimeout(function(){
+						let data = '订单数据';
+						iter.next(data);	//调用第三次 
+					}, 2000)
+				}
+				function getGoods() {
+					setTimeout(function(){
+						let data = '商品数据';
+						iter.next(data);	//调用第四次 
+					}, 3000)
+				}
+				function * gen4() {
+					let userInfo = yield getUser();
+					
+					console.log(userInfo);
+					
+					let orderInfo = yield getOrder(userInfo);
+					
+					console.log(orderInfo);
+					
+					let goodsInfo = yield getGoods(userInfo);
+					
+					console.log(goodsInfo);
+				}
+				let iter = gen4();
+				iter.next();	//调用第一次 
+			</script>
+	</body>
+</html>

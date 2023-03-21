@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+	</head>
+	<body>ES8 - ES2017
+		
+		一、Object values（对象的方法value()）
+			
+			获取对象的key（ES5）：Object.keys(object)
+			获取对象的value（ES8）：Object.values(object)
+			
+			Object.values()用法：
+				1、可传入对象，返回的是对象所有的值
+				2、可传入数组，返回的就是数组
+				3、可传入字符串，将数组分割成当个字符，以数组的形式返回
+			<script>
+				const obj = {name: 'Aha', age: 18};
+				
+				console.log(Object.keys(obj));
+				console.log(Object.values(obj));
+				
+				console.log(Object.values([1, 4, 2, 7]));
+				console.log(Object.values('Aha'));
+				
+				function aa(a, b) {
+					console.log([1, 4, 2, 7]);
+					console.log(arguments);
+					console.log(Object.values(arguments));
+				}
+				aa('a', 'b')
+				console.log('---------------------------------');
+			</script>
+		
+		
+		
+		二、Object entries（对象的方法entries()）
+			
+			entries的格式：[[key1, value1], [key2, value2], [key3, value3]]
+			
+			Object.entries()：将字符串转为entries格式
+			
+			Object.entries()用法：
+				1、可传入对象，返回的是entries的格式
+				2、可传入数组，返回的就entries的格式，key为索引值
+				3、可传入字符串，将数组分割成当个字符，以entries的形式返回，key为下标
+			<script>
+				console.log(Object.entries(obj));
+				console.log(Object.entries([1, 4, 2, 7]));
+				console.log(Object.entries('Aha'));
+				
+				console.log('---------------------------------');
+			</script>
+		
+		
+		
+		三、String Padding
+			
+			Pad：平板、填充
+			
+			ES8新增了 padStart() 和 padEnd()：分别是对字符串的收尾进行填充
+			
+			padStart(number[, string])、padEnd(number[, string])用法：
+				1、第一个参数：长度，字符保留的长度
+				2、第二个参数：可省，字符，以什么字符进行填充，默认空格
+			
+			应用场景：身份证的显示：显示后4位，其他以字符串的形式显示
+			<script>
+				const card = '666443334455556665556';
+				// 截取后四位
+				const short = card.slice(-4);
+				// 填充
+				console.log(short.padStart(card.length, '*'))
+				
+				console.log('---------------------------------');
+			</script>
+			
+			
+			
+		四、Tralling Commas（结尾逗号）
+			<script>
+				// ES8以前，形参/实参 后面多个,，会报错，ES8就不会
+				function foo(m, n,) {
+					console.log(m, n)
+				}
+				foo(1, 2,)
+				
+				console.log('---------------------------------');
+			</script>
+			
+			
+			
+		五、Object Descriptors
+			获取属性的描述，12里有说
+			
+			
+			
+		六、async函数
+			async 和 await 两者方法结合可以让异步代码像同步代码一样
+			
+			async函数：
+				1、async函数 返回值为 Promise对象（即使return的是其他数据类型）
+				2、promise对象 的结果由 async函数 执行的返回值决定
+			<script>
+				// 1-无论return啥或者不return，函数最后都是promise对象
+				// 2-如果函数里reject或throw时，那么函数的结果也为失败；否则即成功
+				async function fn1() {
+				}
+				async function fn2() {
+					return;
+				}
+				async function fn3() {
+					// throw '出错了';
+					// throw new Error('出错了');
+				}
+				async function fn4() {
+					return new Promise((resolve, reject) => {
+						resolve('成功')
+					})
+				}
+				async function fn5() {
+					return new Promise((resolve, reject) => {
+						reject('失败')
+					})
+				}
+				console.log(fn1())
+				console.log(fn2())
+				console.log(fn3())
+				console.log(fn4())
+				console.log(fn5())
+				
+				fn1().then(res => {
+					console.log(res);
+				}).catch(err => {
+					console.log(err);
+				})
+				fn4().then(res => {
+					console.log(res);
+				}).catch(err => {
+					console.log(err);
+				})
+				fn5().then(res => {
+					console.log(res);
+				}).catch(err => {
+					console.log(err);
+					console.log('---------------------------------');
+				})
+				
+			</script>
+			
+			
+		七、await表达式：
+			1、await必须写在async函数中
+			2、await右侧的表达式一般为promise对象
+			3、await返回的是promise成功的值
+			4、await的promise失败了，就会抛出异常，需要try...catch捕获处理
+			<script>
+				async function fn8() {
+					try {
+						const result = await new Promise((resolve, reject) => {
+							resolve('成功');
+							// reject('失败');
+						})
+						console.log(result);
+					} catch(e) {
+						console.log(e);
+					}
+				}
+				fn8().then(res => {
+					console.log(res); //undefine，因为fn8没有return
+					console.log('---------------------------------');
+				}).catch(err => {
+					console.log(err); //undefine，因为fn8没有return
+					console.log('---------------------------------');
+				})
+			</script>
+			
+			
+		async和await结合加载文件，在另一个js
+			
+			
+		async和await结合发送AJAX请求：
+			<script>
+				function sendAJAX(url) {
+					return new Promise((resolve, reject) => {
+						let xhr = new XMLHttpRequest();
+						xhr.open("GET", url);
+						xhr.send();
+						xhr.onreadystatechange = function() {
+							if (xhr.readyState === 4) {
+								if (xhr.status >= 200 && xhr.status < 300) {
+									resolve(xhr.response);
+								} else {
+									reject(xhr.status);
+								}
+							}
+						}
+					})
+				}
+				async function fn10() {
+					try{
+						// let result = await sendAJAX('https://api.apiopen.top/getJoke');
+						let result = await sendAJAX('/getJoke').then(res => {
+							console.log(res);
+						});
+						console.log(result); //undefined
+					}catch(e){
+						console.log(e);
+					}
+				}
+				fn10();
+			</script>
+	</body>
+</html>

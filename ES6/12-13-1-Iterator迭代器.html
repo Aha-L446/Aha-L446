@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+	</head>
+	<body>
+		迭代器(iterator)是一种接口，为不同的数据结构提供统一的访问机制。
+			本质上是对象的一个属性，属性名为iterator：__proto__.Symbol(Symbol.iterator): function(){}
+			任何数据结构只要部署了 iterator 接口，就可以进行遍历操作（可以使用for、for...of等）。
+		
+		具备iterator接口的数据：
+			Array
+			Arguments
+			Set
+			Map
+			String 
+			TypedArray
+			NodeList
+		
+		迭代器工作原理：
+			1-创建一个指针对象，指向当前数据结构的起始位置；
+			2-第一次调用对象的next方法，指针自动指向数据结构的第一个成员；
+			3-接下来不断调用next方法，指针一直往后移动，直到指向最后一个成员；
+			4-每次调用next方法返回一个包含value和done属性的对象。
+		
+		
+		应用场景：
+			自定义遍历数组：对对象定义iterator接口，以至于可以使用for...of进行方法
+			<script>
+				const obj = {
+					name: 'Aha',
+					arr: [11, 22, 33, 44],
+					[Symbol.iterator]() {
+						let index = -1;
+						return {
+							next: () => {
+								index++;
+								return {value: this.arr[index], done: !(index < this.arr.length)}
+							}
+						}
+					}
+				}
+				console.log(obj)
+				// 如果obj直接for...of，不行
+				for(const item of obj) {}
+				// 如果obj.arr直接for...of，不是面前对象开发
+				for(const item of obj.arr) {}
+				// 定义[Symbol.iterator]()
+				for(const item of obj) {
+					console.log(item)
+				}
+			</script>
+	</body>
+</html>

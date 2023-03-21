@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+	</head>
+	<body>
+		Git简介和软件安装
+			1、简介
+				1.版本管理是一个合格的程序员的必备的基础技能
+					1.版本常用工具一个是git，一个是svn
+				2.版本管理工具主要有两个作用
+					1.代码版本管理
+					2.多人协作开发
+					3.Git是一个开源的分布式版本控制系统，可以有效、高速地处理从很小到非常大的项目版本管理。
+			2、git安装
+				1.官网https://git-scm.com/
+				2.或者通过其他软件商店下载
+			3、小乌龟 TortoiseGit安装
+				1.记得选择使用openssh-----------------
+				2.安装完以后记得设置用户和邮箱
+				
+		Git服务器
+			1、GitHub
+			2、Gitee
+		
+		Git本地仓库创建和一些基本概念
+			1、使用git init命令创建本地仓库
+			2、仓库区和工作区
+				.git文件夹为仓库区，类似于一个数据库存储着每一次提交的变化
+				.git所在目录称为工作区，我们在这里创建项目，和其他文件
+			3、使用gitadd<文件名>可以把文件添加到暂存区，暂存区存储将要被提交的文件变化
+			4、使用commit命令提交暂存区存储的变化并生成一个新的版本
+			5、使用git status命令查看状态，git log命令查看日志
+			
+		Git服务器和远程仓库创建
+			1.可以搭建，自己搭建git服务器
+			2.免费服务器
+				1.github.com全球最大开源项目托管平台
+				2.gitee.com 国内知名开源项目托管平台码云
+			3.注册gitee账号，并创建仓库
+		
+		Git克隆
+			1.https方式
+				1.第一次克隆需要我们输入账号密码
+			2.ssh方式
+				1.ssh是一种开源非对称加密通信协议，
+				2.ssh只是一种协议，有开源实现也有商业实现，git默认使用开源实现的openssh
+				3.ssh通信需要一对密钥（公和私一对），私钥留在自己电脑上，公钥给其他的电脑
+				4.使用Git GUI生成密钥，并把公钥放在服务器上
+				5.安装完第一次克隆会请求是否允许使用ssh，需要我们输入一个"yes"-------
+		
+		添加，提交，推送，拉取
+			1.添加add（如果使用使用小乌龟勾选即为add)
+			2.提交commit
+				1.提交只提交到本地仓库，需要推送才会到把变化更新到服务器仓库
+			3.推送push
+				1.如果服务器版本比我们新，会推送不成功需要先拉取
+			4.拉取pull
+				1.拉取时应确保工作区整洁
+		
+		分支
+			1.master是仓库的主分，为了避免开发过程中程序员之间相互影响，我们一般选择创建一个新的分支来开发新功能
+			2.创建分支
+			3.切换分支
+			4.合并分支
+			
+		冲突
+			1.冲突如何产生
+			2.如何解决冲突
+			3.尽量避免冲突
+			
+			
+			
+		
+		克隆私有项目需要先添加到项目，且需要账号密码(使用SSH克隆不需要账号密码)。
+		
+		推送的时候，如果当前版本不是服务器上版本，需要先拉取再推送（推送的时候会有提示）
+		
+		~/.ssh：~为用户的目录
+		
+		忽略配置(忽略的文件/夹，会为灰色)：
+			忽略文件夹(子文件也忽略)：文件夹名/
+			忽略当前文件夹：/文件夹名/
+			忽略当前文件：/文件名
+			反忽略：在前面加“!”
+		
+		
+		
+		一、安装git
+			1、安装配置，查看01-Git.html（二）
+			2、安装成功后，右键会有 Git Bash 和 Git GUI
+			
+		二、设置用户和邮箱
+			1、具体信息，查看01-Git.html（三）
+			2、命令：
+				git config --global user.name 用户名（设置用户签名，用户名随便起）
+				git config --global user.email 邮箱（设置用户签名，可填虚拟邮箱）
+			
+		三、生成秘钥
+			1、命名生成（02-GitHub.html 三）：
+				ssh-keygen -t rsa -C 1716066071@qq.com
+			2、Git GUI：
+				Help -- Show SSH Key -- Generate Key -- (这里是再次加密，不填) -- OK
+			
+		☆☆☆四、安装TortoiseGit
+			1、选择选择Git.ext：Git\bin（Git的安装目录）
+			2、选择使用openssh
+			3、在选择语言的时候，默认只有英文，需要打开链接下载语言包(拉下去才是语言包)，再刷新选择列表，就会出现中文
+		
+		☆☆☆五、TortoiseGit的设置（最好在工作区打开设置，否则有的配置不展示出来）：
+			1、如果安装完成后，需要重新向导：设置-常规设置-重新运行首次启动向导
+			2、(不需要?)设置-Git-Remote，新增一个remote（填写Remote和URL(SSH)）
+			3、(不需要?)设置-Network，选择 SSH client 地址：Git\usr\bin\ssh.exe（Git安装路径）
+		
+		关于TortoiseGit：
+			1、log为本地库的提交记录，故跨库提交的，本库不记录
+			2、远程库的一个分支，对应本地库的一个分支（push不可指定远程库分支）
+		
+		六、TortoiseGit操作（1和2选择性操作；TortoiseGit没有暂存区）：
+			1、初始化，右键
+			2、克隆，右键；克隆有以下操作：
+				1、拉取代码；2、初始化本地库(.git文件夹)；3、创建别名(克隆本地库别名？)
+			3、创建分支，右键 -- create branch
+			4、切换分支：
+				方法一、右键 -- Switch/Checkout 
+				方法二、右键 -- Revision graph -- 在相应的版本上右键
+			5、合并版本：切换到合并版本，右键 -- Merge -- 选择需要合并的版本
+			6、解决冲突：
+				方法一、提交的时候系统会提示有冲突，点“解决” -- 进入冲突列表 -- 修改冲突 -- 保存，需要选择“标记为已解决”/“保留冲突”
+				方法二、自行解决，然后commit，此时列表冲突的文件为红色(状态为“冲突”)，右键 -- 解决，然后再提交
+			☆☆☆7、版本回退：
+				如果回退到A版本，就没有A后面的log了，故需标记一下最新的版本。
+				标记版本：右键 -- show log -- Create tag to this version
+				回滚：右键 -- show log -- Reset to this
+					（注意：选择第三项工作区和暂存区都回滚，会覆盖工作区的内容）
+			8、子模块
+		
+		
+		当clone、push或pull失败：
+			
+			提示publickey：No supported authentication methods available (server sent: publickey)
+				https://blog.csdn.net/qq_37726813/article/details/127475348
+				解决：五、3
+			
+			提示确认权限：Please make sure you have the correct access rights and the repository exists.
+				检查命令：ssh -T git@github.com，查看主机是否与github网站之间的ssh通信是否连接成功
+				
+				提示一、
+					kex_exchange_identification: Connection closed by remote host
+					Connection closed by 20.205.243.166 port 22
+					
+					原因：
+						家中使用的网络代理封禁了 Github 端口 22 的连接
+					解决：
+						https://blog.csdn.net/m0_62159662/article/details/125156695
+						将 Github 的连接端口从 22 改为 443 即可。修改 ~/.ssh/config，内容如下：
+							Host github.com
+							Hostname ssh.github.com
+							Port 443
+							User git
+						再执行 ssh -T git@github.com：
+							This key is not known by any other names
+							Are you sure you want to continue connecting (yes/no/[fingerprint])?
+							输入 ：yes
+							
+				提示二、Connection reset by 20.205.243.160 port 443
+					
+					https://blog.csdn.net/qq_36257356/article/details/124381865
+					
+					hosts文件（C:\Windows\System32\drivers\etc）添加：
+						20.205.243.160 github.com（IP根据上面的提示修改）
+					
+					刷新DNS指令：
+						sudo killall -HUP mDNSResponder;say DNS cache has been flushed
+					
+					再执行 ssh -T git@github.com 检测
+					
+					【本机上可能无法正常访问github.com】
+
+
+	</body>
+</html>

@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+	</head>
+	<body>
+		数据结构：存放数据的方式（有：数组、链表、哈希表、树结构、图结构）
+		
+		ES6前，存储数据的结构主要有两种：数组、对象；
+		ES6新增了两种数据结构：Set、Map，以及他们的另外形式：WeakSet、WeakMap。
+		
+		Set对象：类型于数组，但数据不能重复。
+		
+		应用场景：
+			1、当需要数据不能重复时；
+			2、给原来的数组去重
+		<script>
+			const set = new Set();
+			set.add(10);
+			set.add(20);
+			set.add(50);
+			
+			set.add(10); // 重复的不添加进去
+			
+			set.add({});
+			set.add({}); // 存进去的是两个{}，因为他们的内存地址不同
+			
+			const obj = {};
+			set.add(obj);
+			set.add(obj); // 这里只会添加一个
+			console.log(set)
+			
+			
+			// 数据去重
+				const arr = [1, 13, 55, 55, 6, 13];
+				
+				// 方法一
+				const newArr = [];
+				for(const item of arr) {
+					if (newArr.indexOf(item) === -1) {
+						newArr.push(item);
+					}
+				}
+				
+				// 方法二
+				const newSet = new Set(arr);
+			
+			
+			// Set对象转为数组：
+				// 方法一：Array.from(Set)
+				const arr1 = Array.from(set);
+				// 方法二：展开运算符
+				const arr2 = [...set];
+		</script>
+		
+		
+		Set常见的属性：
+			size：返回Set数据的个数
+			
+		Set常见的方法：
+			add(元素/数据)
+			delete(元素/数据)：删除，不支持索引值
+			has(元素/数据)：是否包含某个元素
+			clear()：清除，删除整个Set 
+			forEach()
+		
+		
+		对Set进行循环：
+			<script>
+				// 方法一：forEach()
+				set.forEach((item) => {
+					
+				})
+				
+				// 方法二：for...of
+				for (const item of set) {
+					
+				}
+			</script>
+	</body>
+</html>

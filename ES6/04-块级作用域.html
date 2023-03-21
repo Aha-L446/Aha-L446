@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+	</head>
+	<body>
+		
+		<script>
+			ES5中只用两个作用域（没有块级作用域）：
+				1、全局作用域
+				2、函数作用域
+			
+			
+			ES6有块级作用域（对let、const、function、class声明的类型都有效）
+				{
+					let name = 'Aha';
+					function demo() {};
+					class Person {}
+				}
+				但有的浏览器为了兼容以前的代码，让 function 没有块级作用域。
+			
+			
+			块级作用域的写法：
+				1、{}
+				2、if(){}
+				3、switch(){}
+				4、while(){}
+				5、for(){}
+						for(var i = 0; i < 10; i++){}	//i在{}里声明
+						console.log(i); //10
+						for(let i = 0; i < 10; i++){}	//i在{}里声明
+						console.log(i); //undefine
+						for(var i = 0; i < btn.length; i++){
+							(function(i){
+								btn[i].onclick = function() {
+									console.log('第' + i + '按钮被点击')；
+								}
+							})(i)
+						}
+				
+				function(){} //为函数作用域
+			
+		</script>
+	</body>
+</html>

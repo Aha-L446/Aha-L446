@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+	</head>
+	<body>
+		Map：存储映射关系（键值对），与对象类似
+		
+		Map与对象的区别：
+			1、对象的key的类型只能是 string 或 Symbol；Map可以使用其他数据类型作为key
+		
+		创建Map：
+			<script>
+				const obj1 = {name: 'Aha'};
+				const obj2 = {age: 18};
+				
+				const info = {
+					[obj1]: 'a',
+					[obj2]: 'b',
+				}
+				console.log(info);
+				
+				// 构造方法创建1
+				const map = new Map();
+				map.set(obj1, 'a');
+				map.set(obj2, 'b'); //对象类型作为key
+				map.set(1, 'c'); //number类型作为key
+				console.log(map);
+				
+				// 构造方法创建2：数组的形式[key, value]
+				const map2 = new Map([[obj1, 'a'], [obj2, 'b'], [2, 'c'], [2, 'd']]);
+				console.log(map2);
+			</script>
+		
+		
+		常见的属性和方法：
+			size：
+			set(key, value)
+			get(key)
+			has(key)
+			delete(key)：返回boolean
+			clear()
+		
+		
+		遍历：
+			<script>
+				// 遍历1-forEach
+				map2.forEach((value, key, map) => {
+					
+				})
+				
+				// 遍历2-for...of
+				for(const item of map2) {
+					// item为数组类型：[key, value]
+				})
+				for(const [key, value] of map2) { // 数组的解构
+					
+				})
+			</script>
+	</body>
+</html>

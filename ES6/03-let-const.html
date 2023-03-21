@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+	</head>
+	<body>
+		<script>
+			let name = "";
+			// 1-变量
+			// 2-变量不可重名
+			
+			const name = {};
+			// 1-常量，定义后不可以修改；但如果传递的是一个引用类型(实际上存储的是内存地址)，修改修改引用类型里的属性
+			// 2-常量不可重名
+			// 3-常量在定义的时候需要赋值
+			
+			
+			二、let、const 与 声明提升：
+				没有声明提升（已被创建出来，但不能被访问）
+			
+				作用域提升：在声明之前可以被访问（var 有作用域提升）
+			
+			
+			三、let、const 与 window 的关系：
+				window：ECMA3及以前，指向的都是VO对象
+				
+				
+				其他概念：
+					ECMA标准中对执行上下文的描述（对引擎的规范）：
+						每一个执行上下文会关联到一个变量环境(variable object, vo)，在源代码中的变量和函数声明会被作为属性添加到变量环境中。
+						对于函数来说，参数也会被添加到VO中。
+					
+						每一个执行上下文会关联到一个变量环境（VariableEnvironment）中，在执行代码中变量和函数的声明会作为环境记录(Enviroment Record)添加到环境变量中。
+						对于函数来说，参数也会被作为环境记录添加到环境变量中。
+						
+					也就是说我们声明的变量和环境变量是被添加到变量环境中的：
+						但没有标准规定这个对象（变量环境）是window还是其他对象；
+						在js引擎解析的时候，有自己的实现；
+						v8引擎是通过VariableMap_(hashmap类型)来实现存储。
+						window对象，在v8中早期是指向的是GO对象（GO指向VE）；在最新的实现中其实是浏览器添加的全局对象，并且一直保持了window和var之间的相等性。
+						
+						
+					浏览器、v8引擎、js引擎(JSCode)：
+						引擎是嵌入到浏览器里的
+		
+			
+			四、块级作用域
+				{	// 块代码
+					var name = 'Aha';
+				}
+				var 没有块级作用域
+				
+				在ES5中只用两个作用域：
+					1、全局作用域
+					2、函数作用域
+				
+				
+			let、const 与 for：
+				对于var：
+					for(var i = 0; i < 10; i++) {
+						
+					}
+					{
+						var i = 0;
+					}
+					{
+						i累加
+						var i = 累加后的值;（因为是var，故可以当做同一个i）
+					}
+				对于let：
+					for(let i = 0; i < 10; i++) {
+						
+					}
+					{
+						let i = 0;
+					}
+					{
+						上一个i累加
+						let i = 累加后的值;（let有作用域，这里是不同的i）
+					}
+				对于const：
+					for(const i = 0; i < 10; i++) {
+						// i不能使用const定义，因为i需要累加
+					}
+				
+				for...of：ES6新增的遍历数组的对象
+					const arr = [1, 2, 3];
+					for(const item of name) {
+						// 这里不需要累加，可以定义成const
+					}
+					
+			
+			
+			var let const 如何选择：
+				var 所表现出来的特殊性：比如作用域提升、window全局对象、没有块级作用域等都是历史遗留问题，故不建议使用var。
+				对于let和const，优先const；因为const不允许被修改，可以保证数据的安全性，不会被随意修改。
+			
+			关于浏览器不兼容ES6的问题：
+				一般项目都会在构建工具（webpack/vite/rollup）上创建，
+				构建工具上都有相关的babel，将ES6转成ES5
+				
+			
+		</script>
+	</body>
+</html>

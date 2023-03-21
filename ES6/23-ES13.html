@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+	</head>
+	<body>浏览器暂不支持ES13
+	
+		一、at()
+			
+			字符串和数组的at()：
+			<!-- <script>
+				const arr = [1, 3, 5, 6];
+				console.log(arr.at(1)); //3
+				console.log(arr.at(-1)); //6
+				
+				const str = 'Aha';
+				console.log(str.at(1)); //h
+				console.log(str.at(-1)); //a
+			</script> -->
+			
+		
+		二、Object.hasOwn()
+		
+			ES5判断对象中是否含有某个属性：
+			<!-- <script>
+				const obj = {
+					name: 'Aha',
+					__proto__: { //原型
+						age: 18
+					}
+				}
+				console.log(obj.name);
+				console.log(obj.age); //在原型上查找age
+				
+				console.log(obj.hasOwnProperty(name)); //true
+				console.log(obj.hasOwnProperty(age)); //false
+			</script> -->
+			
+			Object.hasOwn(obj, key)用法：
+				1、第一个参数：传入对象
+				2、第二个参数：传入key
+			
+			Object.hasOwn() 与 hasOwnProperty() 的区别：
+				1、hasOwnProperty()无法判断原型上的数据
+				2、hasOwn()是Object.property的方法；hasOwnProperty()是对象的方法，可以重写
+				3、Object.create(null)，hasOwnProperty()有弊端
+				<!-- <script>
+					const info = Object.create(null);
+					info.name = 'Aha';
+					console.log(info.hasOwnProperty) //undefine
+					console.log(Object.hasOwn(info, 'name')) //true
+				</script> -->
+			
+		
+		三、类的新成员
+			
+			1、私有属性
+			2、静态属性
+			3、静态代码块，只执行一次，一般用来初始化数据
+			
+			在ES6中，对象属性通过constructor和this来初始化
+			<script>
+				class Person {
+					// 对象属性，公共的属性，在类外通过实例化访问
+					age = 18;
+					
+					// 对象属性，私有属性，前面加_，约定私有属性，实际上还是可以通过实例化访问
+					_height = 1.88;
+					
+					// ES13的真正私有属性，前面加#
+					#address = '广州';
+					
+					static param1 = '';
+					static #param1 = '';
+					
+					static {
+						console.log('----')
+					}
+					
+					constructor(name) {
+						// 对象属性
+					    this.name = name;
+					}
+				}
+				const p = new Person('Aha')
+				console.log(p.name, p.age, p._height); 
+				console.log(p.#address);	// 报错：Private field '#address' must be declared in an enclosing class
+			</script>
+	</body>
+</html>

@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+	</head>
+	<body>
+		四、运算（Operations）
+			在less中，算术运算符【+、-、*、/】可以对任何【数字、颜色、变量】进行运算。
+			如果计算的数据单位不同时，计算结果以【最左侧操作数的单位类型】为准。
+		
+			.box {
+				height: 100px + 10%;	//结果为110px
+				background: #ff0000 + #00ff00;
+			}
+		
+		
+		五、混入（Mixins）
+			1、基本用法：
+				将一组属性从一个规则集（或混入）到另一个规则集的方法。
+				（将相同的css代码抽取出来，再混入到选择器里）
+			
+				.common {
+					font-size: 12px;
+				}
+				.box1 {
+					color: red;
+					
+					.common();		//将.common混入到.box1
+				}
+				.box2: {
+					color: blue;
+					
+					.common();		//将.common混入到.box2
+				}
+				
+				注意：混入在没有参数的情况下，小括号可以省略，但不建议这么做（后续会被淘汰）。
+			
+			2、传入参数，参数可设默认值：
+				.common(@size: 10px, @color: red) { // 接受参数，设置了默认值
+					<!-- border 1px soild red; -->
+					border @size soild @color;	// 使用参数
+				}
+				.box1 {
+					color: red;
+					
+					.common(5px, green);		//传递参数
+				}
+			
+			3、混入和映射(Map)结合
+				.common {
+					width: 100px;
+					height: 100px;
+				}
+				.box1 {
+					width: .common()[width]; // 混入+映射
+				}
+				【作用】：弥补less不能定义函数的缺陷
+					.pxToRem(@px) {
+						result: (@px / @htmlFontSize) * 1rem;
+					}
+					.box {
+						width: .pxToRem(100)[result];
+						font-size: .pxToRem(18)[result];
+					}
+	</body>
+</html>

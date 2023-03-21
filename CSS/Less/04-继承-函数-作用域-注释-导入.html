@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+	</head>
+	<body>
+		七、继承（extend）
+			与混入的效果一致，当两者的css渲染不同；混入会将样式移动.box里，继承是并集.common .box {}
+			.common: {
+				font-size: 12px;
+			}
+			.box {
+				&:extend(.common);
+			}
+			总结：更推荐混入
+			
+			
+		八、less内置函数
+			color()：颜色转换，将颜色转为颜色值，例如color(red)：#ff0000
+			convert()：单位转化，将当前单位转为其他单位，例如convert(100px, 'in')：1.04166667in
+			ceil()：天花板取值，ceil(18.5px)：19px
+			floor()：地板取值，ceil(18.5px)：18px
+		
+		
+		九、作用域（scope）
+			@fontSize: 12px;
+			.box {
+				@fontSize: 14px;
+				.item {
+					font-size: @fontSize; // 这里是14px
+					span {
+						font-size: @fontSize; // 这里是16px，【先在当前作用域查找，如果没有再往上查找】
+						@fontSize: 16px;
+					}
+				}
+			}
+			
+			@fontSize: 12px;
+			.common: {
+				@fontSize: 16px;
+			}
+			.box {
+				@fontSize: 14px;
+				.item {
+					font-size: @fontSize; // 这里是14px
+					span {
+						font-size: @fontSize; // 这里是16px，【混入也是当前作用域】
+						.common();
+					}
+				}
+			}
+		
+		
+		十、注释
+			方法一（当行注释）、//
+			方法二（多行注释）、/* */
+		
+		
+		十一、导入
+			与css的写法一致：@import 'url'
+			在.less中导入.less文件，可以省略后缀名；
+			在.less中可以导入.css文件。
+	</body>
+</html>

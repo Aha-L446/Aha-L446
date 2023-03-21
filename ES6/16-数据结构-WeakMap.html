@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+	</head>
+	<body>
+		WeakMap：存储映射关系（键值对），与Map类似
+		
+		WeakMap 与 Map 的区别：
+			1、WeakMap的key只能是对象类型，不能使用基本数据类型；
+			2、WeakMap的key对对象是弱引用；如果没有其他引用指向这个对象，那么这个对象就会被GC回收。
+			
+			<script>
+				const obj = {name: 'Aha'};
+				
+				const map = new Map();
+				map.set(obj, 'aaa');	// 此时已有两个引用指向15行的对象，分别是：obj 和 map
+				
+				const weakMap = new WeakMap();
+				weakMap.set(obj, 'aaa');	// 此时已有三个引用指向15行的对象，分别是：obj、map 和 weakMap（weakMap是弱引用）
+				weakMap.set([1], 'aaa');	// 此时已有三个引用指向15行的对象，分别是：obj、map 和 weakMap（weakMap是弱引用）
+				console.log(weakMap)
+			</script>
+			
+			
+		常见方法：
+			无size属性
+			get(key)
+			set(key, value)
+			has(key)
+			delete(key)
+			【weakMap没有遍历】
+		
+		
+		应用场景（Vue3响应式原理：proxy + Object.defineProperty）：
+			<script>
+				// 【当obj1/obj2=null后，WeakMap对obj1/obj2是弱引用，故该对象依旧会被GC回收】
+				
+				const obj1 = {
+					name: 'Aha',
+					age: 18
+				}
+				// 当obj1数据发生改变时，执行一下函数
+				function obj1Name1() {
+					console.log('obj1-name-发生改变1')
+				}
+				function obj1Name2() {
+					console.log('obj1-name-发生改变2')
+				}
+				function obj1Age1() {
+					
+				}
+				function obj1Age2() {
+					
+				}
+				
+				
+				const obj2 = {
+					name: 'Aha',
+					age: 18
+				}
+				// 当obj2数据发生改变时，执行一下函数
+				function obj2Name1() {
+					
+				}
+				function obj2Age1() {
+					
+				}
+			
+				const weakmap = new WeakMap();
+				
+				const map1 = new Map();
+				map1.set('name', [obj1Name1, obj1Name2]);
+				map1.set('age', [obj1Age1, obj1Age2]);
+				weakmap.set(obj1, map1);
+				
+				const map2 = new Map();
+				map2.set('name', [obj2Name1]);
+				map2.set('age', [obj2Age1]);
+				weakmap.set(obj2, map2);
+				
+				// 当obj1.name发生改变:
+				obj1.name = 'Ah';
+				const targetMap = weakmap.get(obj1);
+				const fns = targetMap.get('name');
+				fns.forEach(item => item())
+			</script>
+			
+	</body>
+</html>

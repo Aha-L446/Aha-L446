@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+	</head>
+	<body>
+		一、模板字符串：反引号
+		<script>
+			const age = 18;
+			
+			// 1-变量
+			const message = `我今年${age}岁了`;
+			
+			// 2-表达式
+			const message2 = `我今年${age + 1}岁了`;
+			
+			// 3-方法
+			function getAge() {
+				return age;
+			}
+			const message2 = `我今年${getAge()}岁了`;
+		</script>
+		
+		二、标签模板字符串
+		<script>
+			function foo(m, n, x) {
+				// 第一个参数是数组：['Hello ', ' 呀!']
+				// 第二个参数是第一个${}的数据：Aha
+			}
+			const name = 'Aha';
+			foo`Hello ${name} 呀!`;
+		</script>
+			应用场景：
+				React：css、js、html in js，在js里设置css
+	</body>
+</html>

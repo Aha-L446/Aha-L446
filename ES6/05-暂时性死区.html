@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+	</head>
+	<body>
+		<script>
+			var name = "Aha";
+			if (true) {		// 这块{}就是暂时性死区
+				console.log(name); // Cannot access 'name' before initialzation
+				
+				let name = "abc";
+			}
+			function getName() {		// 这块{}也是暂时性死区
+				console.log(name); // Cannot access 'name' before initialzation
+				
+				let name = "abc";
+			}
+			
+			【 for、switch、while 等同理】
+		</script>
+	</body>
+</html>

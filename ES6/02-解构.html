@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+	</head>
+	<body>
+		<script>
+			一、数组解构写法：
+				var arr = [11, 22, 33];
+				
+				// 1-一般用法
+				var [item1, item1] = arr;	// item1为11，item2为22
+				
+				// 2-解构其中的元素
+				var [, item2, item3] = arr;	// item2为22，item3为33
+				
+				// 3-解构出一个元素，其他放到一个数组里
+				var [item, ...newNames] = arr;
+				
+				// 4-解构默认值
+				var [item1, item2, item3, item4 = 'a'] = arr;
+			
+			
+			二、对象解构写法：
+				var obj = {name: 'Aha', age: 18}
+				
+				// 1-一般写法，根据key取值
+				var {name} = obj;
+				
+				// 2-对key进行重命名
+				var {name: newName} = obj; // newName为Aha
+				
+				// 3-设置默认值
+				var {height: newHeight = 1.88} = obj; // obj中无height，故newHeight为1.88
+			
+			
+			对象解构使用场景：
+				// 1-当函数接受的是对象，在定义函数的时候直接解构
+				function fn({name, age}) {
+					
+				}
+		</script>
+	</body>
+</html>

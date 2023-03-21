@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+	</head>
+	<body>ES12-ES2021，浏览器暂不支持ES12
+		
+		一、FinalizationRegistry：对象销毁回调
+			
+			用法：
+				1、参数一：对象
+				2、参数二：可省，给对象设置名称
+			<script>
+				const fr = new FinalizationRegistry((value) => {
+					console.log('注册在fr的某个对象被GC回收了' + value)
+				})
+				let obj1 = {name: 'Aha'}
+				let obj2 = {age: 18 }
+				fr.register(obj1, 'name')
+				fr.register(obj2, 'age')
+				obj1 = null;
+				obj2 = null;
+				
+				
+				let obj3 = {name: 'Aha'}
+				let obj4 = obj3;
+				obj3 = null;	// obj3=null后，16行的对象不会被销毁，因为obj4对对象进行了强引用
+				
+				
+				// 对弱引用进行验证
+				let obj5 = {name: 'Aha'}
+				let obj6 = new WeakMap();
+				obj6.add(obj5);
+				fr.register(obj5, 'obj5')
+				obj5 = null;
+				
+				console.log('---------------------------------');
+			</script>
+		
+		
+		二、WeakRef：弱引用
+			使用：let xx = new WeakRef(obj)
+			获取：xx.deref()
+			如果obj销毁，deref会为undefine
+			<script>
+				let obj7 = {name: 'Aha'}
+				let obj8 = new WeakRef(obj7);
+				fr.register(obj5, 'obj5')
+				obj7 = null;
+				console.log(obj8.deref().name);
+				setTimeout(() => {
+					console.log(obj8.deref()?.name);
+				}, 10000)
+				
+				console.log('---------------------------------');
+			</script>
+		
+		
+		
+		三、
+			1、逻辑或赋值运算：||=
+			2、逻辑与赋值运算：&&=
+			3、逻辑空赋值运算：??=
+			<script>
+				let foo = undefined;
+				foo = foo || 'defualt value';
+				// 【等同于】
+				foo ||= 'defualt value';
+				console.log(foo);
+				
+				
+				// &&用法
+				let obj = {
+					name: 'Aha',
+					fn: function() {
+						console.log('执行fn')
+					}
+				}
+				obj && obj.fn(); //1-执行方法
+				let name = obj && obj.name;  //2-赋值
+			</script>
+		
+		
+		
+		四、Numberric Separator：数值分割：12_111_333
+		
+		
+		五、String.replaceAll()：字符串替换
+	</body>
+</html>

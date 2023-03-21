@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+	</head>
+	<body>
+		剩余参数：rest parameter
+			如果以...为前缀，那么就会将剩余的参数放入到该参数中，并且作为一个数组；
+			需要放到形参的最后一位，否则会报错。
+		<script>
+			function foo(m, n, ...arr) {
+				
+			}
+		</script>
+		
+		剩余参数与arguments对象：
+			剩余参数只包含：没有对应形参的实参；arguments对象包含了所有实参。
+			【剩余参数是一个真正的数组】；【arguments是Array数组的对象】，并不是一个数组，需要将其转为数组，才能做数组的一些操作。
+			剩余参数是ES6中提供的，并希望能代替arguments；arguments是早期ECMAScript中为了方便获取参数而提供的一个数据结构，也是历史遗留问题。
+	</body>
+</html>

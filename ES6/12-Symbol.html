@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+	</head>
+	<body>
+		Symbol：ES6中新增的基本数据类型，翻译为符号。
+		
+		为什么需要Symbol？
+			对象的属性名都是字符串形式，容易造成属性名冲突（当我们给对象加一个属性的时候，可能会覆盖原来的属性）。
+		
+		Symbol：
+			是一个函数，用来生成一个独一无二的值（函数会返回一个独一无二的字符串）。
+			Symbol值时通过Symbol函数来生成的，生成后可以作为属性名。
+			在ES6中，对象的属性名可以使用字符串，也可以使用Symbol值。
+			<script>
+				const s1 = Symbol();
+				const s2 = Symbol();
+				console.log(s1 === s2); //false
+				
+			</script>
+		
+		
+		二、ES2019(ES10)中，Symbol还有一个描述(description)
+			<script>
+				const s3 = Symbol('aa');
+				console.log(s3.description); //aa
+			</script>
+		
+		
+		三、Symbol值作为key 
+			<script>
+				// 1-定义字面量时使用
+				const name = Symbol();
+				const age = Symbol();
+				const obj = {
+					[name]: 'Aha',
+					[age]: 18,
+					[Symbol()]: 1.88 //此处不知道键名
+				}
+				
+				// 2-新增属性时使用
+				const height = Symbol();
+				obj[height] = 1.88;
+				
+				// 3-通过Object.defineProperty添加
+				const weight = Symbol();
+				Object.defineProperty(obj, weight, {
+					enumerable: true,
+					configurable: true,
+					writable: true,
+					value: '100'
+				})
+				console.log(weight);
+			</script>
+		
+		
+		四、获取Symbol值（不能通过.语法获取）
+			<script>
+				console.log(obj[name], obj[weight]);
+			</script>
+		
+		
+		五、使用Symbol作为key属性名，在遍历Object.keys中是获取不到这些Symbol值的
+			<script>
+				obj.aa = 11;
+				console.log(Object.keys(obj)); //['aa']
+				console.log(Object.getOwnPropertyNames(obj)); //['aa']
+				console.log(Object.getOwnPropertySymbols(obj)); //[Symbol(), Symbol(), Symbol(), Symbol()]
+				const keys = Object.getOwnPropertySymbols(obj);
+				for(const key of keys) {
+					// console.log(obj[key]);
+				}
+			</script>
+		
+		
+		六、创建相同的key(非指定key值)：Symbol.for(key)
+			获取指定的Key：Symbol.keyFor(Symbol())
+			<script>
+				// 
+				const key1 = Symbol.for('id');
+				const key2 = Symbol.for('id');
+				console.log(key1 === key2); // true
+				
+				// 获取key
+				console.log(Symbol.keyFor(key1)); //id
+				
+				obj[key1] = 1;
+				obj[key2] = 2;
+				console.log(obj[key1]); //2
+				console.log(obj.id); //undefine
+			</script>
+	</body>
+</html>

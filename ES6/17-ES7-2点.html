@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+	</head>
+	<body>
+		一、Array Includes：
+		
+			在ES7(ES2016)前，判断数组中师傅含有某个元素：indexOf()
+			在ES7(ES2016)新增了：includes()
+			
+			includes(value[, index])用法：
+				1、第一个参数：判断的值
+				2、第二个参数：可省，索引值，即从该下标开始判断
+			
+			includes 与 indexOf：indexOf无法判断是否存在NaN
+			
+			<script>
+				const arr = [1, 2, 5, 8, NaN];
+				
+				if (arr.indexOf(2) !== -1) {
+					console.log('包含2');
+				}
+				
+				if (arr.includes(2, 2)) {
+					console.log('包含2');
+				}
+				
+				if (arr.indexOf(NaN) !== -1) {
+					console.log('包含NaN'); // 不打印
+				}
+				
+				if (arr.includes(NaN)) {
+					console.log('包含NaN');
+				}
+				
+				console.log('---------------------------------');
+			</script>
+			
+			
+			
+		二、指数(exponentiation乘方)运算符：**
+			<script>
+				// ES7以前
+				const result1 = Math.pow(3, 3);
+				console.log(result1);
+				
+				// ES7
+				const result2 = 3 ** 3;
+				console.log(result2);
+			</script>
+			
+	</body>
+</html>

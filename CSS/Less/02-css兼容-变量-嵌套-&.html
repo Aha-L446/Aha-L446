@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+		<link rel="stylesheet/less" href="" />
+		<script src="https://cdn.jsdelivr.net/npm/less@4"></script>
+	</head>
+	<body>
+		一、兼容css 
+			在.less中可以写任意的css代码
+			
+		
+		二、变量（Variables）
+			@fontSize: 12px;			//使用@符号定义
+			body {
+				font-size: @fontSize;	//直接使用
+			}
+			与CSS定义变量的区别：
+				1、定义和使用方式不同，css的定义和使用：--fontSize:12px;  font-size:var(fontSize);
+				2、定义的位置不同，css需要在根标签下定义：:root/html {}
+		
+		
+		三、嵌套（Nesting）
+			.box {
+				.title {
+					
+				}
+				.content {
+					
+				}
+			}
+			结构与html的一致，方便查看
+		
+		
+		四、&符号
+			.box {
+				.title {
+					&:hover {  //.title的鼠标上移时间
+						
+					}
+				}
+				.content {
+					&:nth-child(1)  //.content的第一个孩子
+				}
+			}
+			&表示当前选择器的父级
+	</body>
+</html>
